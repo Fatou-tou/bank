@@ -1,0 +1,225 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Bank Manager API",
+        "description": "API pour la gestion des comptes bancaires",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "Serveur principal"
+        }
+    ],
+    "paths": {
+        "/api/v1/comptes": {
+            "get": {
+                "tags": [
+                    "Comptes"
+                ],
+                "summary": "Lister les comptes bancaires",
+                "description": "Récupère la liste paginée des comptes avec possibilité de filtrage et recherche",
+                "operationId": "c09c55b936e3520140768760edfa911e",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Recherche par numéro de compte",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Filtrer par type de compte (epargne, cheque)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "epargne",
+                                "cheque"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "statut",
+                        "in": "query",
+                        "description": "Filtrer par statut (actif, bloque, ferme)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "actif",
+                                "bloque",
+                                "ferme"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Champ de tri (dateCreation, solde, titulaire)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "dateCreation"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Ordre de tri",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "asc",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Nombre d'éléments par page (max 100)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10,
+                            "maximum": 100,
+                            "minimum": 1
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Numéro de page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1,
+                            "minimum": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des comptes récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Comptes récupérés avec succès"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer"
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Compte"
+                                                    }
+                                                },
+                                                "per_page": {
+                                                    "type": "integer"
+                                                },
+                                                "total": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Compte": {
+                "title": "Compte",
+                "description": "Modèle représentant un compte bancaire",
+                "properties": {
+                    "id": {
+                        "description": "UUID du compte",
+                        "type": "string"
+                    },
+                    "numeroCompte": {
+                        "description": "Numéro du compte",
+                        "type": "string"
+                    },
+                    "titulaire": {
+                        "description": "Nom complet du titulaire",
+                        "type": "string"
+                    },
+                    "type": {
+                        "description": "Type de compte",
+                        "type": "string",
+                        "enum": [
+                            "epargne",
+                            "cheque"
+                        ]
+                    },
+                    "solde": {
+                        "description": "Solde du compte",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "devise": {
+                        "description": "Devise du compte",
+                        "type": "string"
+                    },
+                    "dateCreation": {
+                        "description": "Date de création",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "statut": {
+                        "description": "Statut du compte",
+                        "type": "string",
+                        "enum": [
+                            "actif",
+                            "bloque"
+                        ]
+                    },
+                    "motifBlocage": {
+                        "description": "Motif de blocage si applicable",
+                        "type": "string"
+                    },
+                    "metadata": {
+                        "properties": {
+                            "derniereModification": {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Comptes",
+            "description": "Gestion des comptes bancaires"
+        }
+    ]
+}

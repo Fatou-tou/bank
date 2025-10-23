@@ -10,7 +10,25 @@ use Illuminate\Support\Str;
 use App\Traits\HasUuid;
 use App\Traits\HasAdvancedQueryScopes;
 
-
+/**
+ * @OA\Schema(
+ *     schema="Compte",
+ *     title="Compte",
+ *     description="Modèle représentant un compte bancaire",
+ *     @OA\Property(property="id", type="string", description="UUID du compte"),
+ *     @OA\Property(property="numeroCompte", type="string", description="Numéro du compte"),
+ *     @OA\Property(property="titulaire", type="string", description="Nom complet du titulaire"),
+ *     @OA\Property(property="type", type="string", enum={"epargne", "cheque"}, description="Type de compte"),
+ *     @OA\Property(property="solde", type="number", format="float", description="Solde du compte"),
+ *     @OA\Property(property="devise", type="string", description="Devise du compte"),
+ *     @OA\Property(property="dateCreation", type="string", format="date-time", description="Date de création"),
+ *     @OA\Property(property="statut", type="string", enum={"actif", "bloque"}, description="Statut du compte"),
+ *     @OA\Property(property="motifBlocage", type="string", description="Motif de blocage si applicable"),
+ *     @OA\Property(property="metadata", type="object",
+ *         @OA\Property(property="derniereModification", type="string", format="date-time")
+ *     )
+ * )
+ */
 class Compte extends Model
 {
     use HasFactory, HasUuid, HasAdvancedQueryScopes;
