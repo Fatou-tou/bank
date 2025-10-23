@@ -16,7 +16,7 @@ return [
             ],
             'paths' => [
                 /*
-                 * Edit to include full URL in ui for assets
+                 * Edit to include full URL in ui for assetsdfghjkjfghj
                  */
                 'use_absolute_path' => env('L5_SWAGGER_USE_ABSOLUTE_PATH', false),
 
