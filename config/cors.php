@@ -15,9 +15,10 @@ return [
     |
     */
 
-    'paths' => ['api/v1.0.0'],
+    'paths' => ['api/peckouetbinombo.paulemile/*'],
 
-    'allowed_methods' => ['PUT', 'DELETE', 'POST', 'PATCH', 'GET', 'OPTIONS'],
+    // 'allowed_methods' => ['PUT', 'DELETE', 'POST', 'PATCH', 'GET', 'OPTIONS'],
+    'allowed_methods' => ['*'],
 
     'allowed_origins' => ['http://localhost:8000', 'http://127.0.0.1:8000'],
 
