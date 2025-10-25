@@ -16,5 +16,8 @@ use App\Http\Controllers\CompteController;
 |
 */
 
+// Groupe Version 1 des routes pour les comptes
+route::prefix('v1')->group(function (){
+    Route::apiResource('/comptes', CompteController::class);
+});
 
-Route::apiResource('v1/comptes', CompteController::class);
