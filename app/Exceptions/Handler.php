@@ -26,5 +26,37 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        $this->renderable(function (\App\Exceptions\CompteNonTrouveException $e, $request) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'error' => 'COMPTE_NON_TROUVE'
+            ], $e->getCode());
+        });
+
+        $this->renderable(function (\App\Exceptions\SoldeInsuffisantException $e, $request) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'error' => 'SOLDE_INSUFFISANT'
+            ], $e->getCode());
+        });
+
+        $this->renderable(function (\App\Exceptions\CompteBloqueException $e, $request) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'error' => 'COMPTE_BLOQUE'
+            ], $e->getCode());
+        });
+
+        $this->renderable(function (\App\Exceptions\TypeCompteInvalideException $e, $request) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'error' => 'TYPE_COMPTE_INVALIDE'
+            ], $e->getCode());
+        });
     }
 }
