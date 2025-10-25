@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompteController;
 
@@ -17,7 +16,7 @@ use App\Http\Controllers\CompteController;
 */
 
 // Groupe Version 1 des routes pour les comptes
-route::prefix('v1')->group(function (){
+route::prefix('v1')->middleware('rating')->group(function (){
     Route::apiResource('/comptes', CompteController::class);
 });
 

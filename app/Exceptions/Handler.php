@@ -58,5 +58,13 @@ class Handler extends ExceptionHandler
                 'error' => 'TYPE_COMPTE_INVALIDE'
             ], $e->getCode());
         });
+
+        $this->renderable(function (\App\Exceptions\RateLimitExceededException $e, $request) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'error' => 'RATE_LIMIT_EXCEEDED'
+            ], $e->getCode());
+        });
     }
 }

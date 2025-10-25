@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('motifBlocage')->nullable();
             // $table->enum('supprime', ['non supprimé', 'supprimé'])->default('non supprimé');
             $table->boolean('supprime')->default(false);
+            $table->dateTime('date_deblocage')->nullable();
             $table->timestamps();
 
             // clé étrangère vers la table clients
