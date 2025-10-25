@@ -29,8 +29,8 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
-            Route::middleware('api/peckouetbinombo.paulemile')
-                ->prefix('api')
+            Route::middleware('api')
+                ->prefix('api/peckouetbinombo.paulemile')
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
