@@ -6,6 +6,7 @@ use App\Models\Compte;
 use App\Traits\RestResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Http\Resources\CompteCollection;
 
 /**
  * @OA\Tag(
@@ -94,7 +95,7 @@ class CompteController extends Controller
         // Logs pour diagnostiquer les paramètres reçus
         Log::info('Paramètres de requête reçus dans CompteController@index:', $request->all());
 
-        $query = Compte::with('client')
+        $query = Compte::with('client', 'transactions')
             ->search($request->search)  // Utilise le trait avec colonnes définies dans le modèle
             ->filter([
                 'type' => $request->type,
@@ -112,7 +113,7 @@ class CompteController extends Controller
 
         Log::info('Nombre de comptes retournés:', ['count' => count($comptes->items()), 'total' => $comptes->total()]);
 
-        return $this->paginatedSuccessResponse($comptes);
+        return new CompteCollection($comptes);
     }
 
     /**
